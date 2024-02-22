@@ -45,14 +45,6 @@ let rec combinePair x =
 //tions in infix notation with proper precedences, and use patterns to obtain readable declarations
 
 
-let (-) (p1, s1, pp1) (p2, s2, pp2)=
-    let firstRemainder = (p1*12*20 + s1*20 + pp1) - (p2*12*20 + s2*20 + pp2)
-    let pounds = firstRemainder/(12*20)
-    let secondRemainder = firstRemainder % (12*20)
-    let shillings = secondRemainder / 12
-    let pence = secondRemainder % 12
-    (pounds, shillings, pence);;
-
 
 type british = {
     Pound : int;
@@ -69,9 +61,8 @@ let (+) (a: british) (b: british) =
         (sum % 20, sum / 20)
     let pound = a.Pound + b.Pound + carry
     {Pound = pound; Shilling = shilling; Pence = pence;}
-(*
+
 let (-) (a: british) (b: british) = 
-    printfn (a.Pence - b.Pence)
     let (pence: int, carry) =
         let difference: int = (a.Pence - b.Pence)
         if difference < 0 then (difference + 12, 1) else (difference, 0)
@@ -84,4 +75,3 @@ let (-) (a: british) (b: british) =
 
     {Pound = pound; Shilling =  shilling; Pence = pence;}
 
-*)
