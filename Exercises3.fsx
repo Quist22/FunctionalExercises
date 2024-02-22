@@ -86,5 +86,72 @@ let plusBrit (a: british) (b: british) =
     let pound = a.Pound + b.Pound + carry
     {Pound = pound; Shilling = shilling; Pence = pence;}
 
-let (+) a b = plusBrit a b;;
-let (-) a b = minBrit a b;;
+let ( &+ ) a b = plusBrit a b;;
+let ( &- ) a b = minBrit a b;;
+
+
+//Exercise 3.5
+
+//The set of complex numbers is the set of pairs of real numbers. Complex numbers behave almost
+//like real numbers if addition and multiplication are defined by:
+//(a, b) + (c, d) = (a + c, b + d)
+//(a, b) · (c, d) = (ac - bd, bc - ad)
+//1. Declare suitable infix functions for addition and multiplication of complex numbers.
+
+//2. The inverse of (a, b) with regard to addition, that is, −(a, b), is (−a, −b), and the inverse of
+//(a, b) with regard to multiplication, that is, 1/(a, b), is (a/(a2 + b2 ), −b/(a2 + b2 )) (provided
+//that a and b are not both zero). Declare infix functions for subtraction and division of complex
+//numbers.
+
+//3. Use let-expressions in the declaration of the division of complex numbers in order to avoid
+//repeated evaluation of identical subexpressions.
+
+//part 1:
+type complexNum = {
+    first: float;
+    second: float;
+}
+
+let multiplyComplex num1 num2  = (num1.first * num2.first- num1.second * num2.second, num1.second * num2.first - num1.first - num2.second);;
+let addComplex num1 num2 = (num1.first + num2.first, num1.second + num2.second);;
+2
+let ( /+ ) num1 num2 = addComplex num1 num2;;
+let ( /* ) num1 num2 = multiplyComplex num1 num2;;
+
+//part 2:
+
+let pow2 num = num * num;;
+let subtractComplex num1 num2 = (num1.first - num2.second, num1.second - num2.second);;
+let divideComplex num1 num2 = 
+            let numIn = {
+                first = num2.first/( pow2 num2.first + pow2 num2.second);
+                second = -num2.second/( pow2 num2.first + pow2 num2.second);
+            }
+
+            num1 /* numIn;
+
+let ( /- ) num1 num2 = subtractComplex num1 num2;
+let( /| ) num1 num2 = divideComplex num1 num2;;
+
+//part 3:
+
+//allready done ??
+
+
+// Exercise 3.6
+//Give a declaration for altsum (see Page 76) containing just two clauses.
+
+let rec altsum = function
+                | [] -> 0
+                | [x] -> x
+                | x0::x1::xs -> x0 - x1 + altsum xs;;
+
+
+let rec altsum2 input = 
+                    match input with 
+                        | [_] -> if  not input.IsEmpty then  input.Head  else 0
+                        | x1::x2::xs -> x1 - x2 + altsum2 xs;;
+
+altsum [1; -1; 2];;
+altsum2  [1; -1; 2];;
+

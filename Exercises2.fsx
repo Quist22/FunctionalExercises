@@ -1,5 +1,3 @@
-
-
 let timediff (h1, m1) (h2, m2) = (h2 - h1)*60 + m2 - m1;;
 
 let minutes (h2, m2) = timediff(0, 0) ;;
