@@ -52,7 +52,31 @@ type british = {
     Pence : int;
 }
 
-let (+) (a: british) (b: british) = 
+let minBrit (a: british) (b: british) = 
+
+    let (pence: int, penceCarry: int) =
+
+        let penceDifference: int = a.Pence - b.Pence;
+        let eval = penceDifference < 0;
+        if eval then (penceDifference + 20, 1) else (penceDifference, 0);
+
+    let (shilling: int, shillingCarry) = 
+
+        let shillingDifference : int = a.Shilling - b.Shilling - penceCarry;
+        let eval = shillingDifference < 0;
+        if eval then (shillingDifference + 12, 1) else (shillingDifference, 0);
+
+    let (pound: int, carry) = 
+
+        let poundDifference : int =  a.Pound - b.Pound - shillingCarry;
+        let eval = poundDifference < 0;
+        if eval then (poundDifference, 1) else (poundDifference, 0);
+
+    if pound < 0 then failwith "No more british money"
+
+    {Pound = pound; Shilling =  shilling; Pence = pence;}
+
+let plusBrit (a: british) (b: british) = 
     let (pence, carry) =
         let sum = a.Pence + b.Pence
         (sum % 12, sum/12)
@@ -62,16 +86,5 @@ let (+) (a: british) (b: british) =
     let pound = a.Pound + b.Pound + carry
     {Pound = pound; Shilling = shilling; Pence = pence;}
 
-let (-) (a: british) (b: british) = 
-    let (pence: int, carry) =
-        let difference: int = (a.Pence - b.Pence)
-        if difference < 0 then (difference + 12, 1) else (difference, 0)
-    let (shilling: int, carry) = 
-        let difference : int = a.Shilling - b.Shilling - carry
-        if difference < 0 then (difference + 20, 1) else (difference, 0)
-    let (pound: int, carry) = 
-        let difference : int =  a.Pound - b.Pound - carry
-        if difference < 0 then (difference, 1) else (difference, 0)
-
-    {Pound = pound; Shilling =  shilling; Pence = pence;}
-
+let (+) a b = plusBrit a b;;
+let (-) a b = minBrit a b;;
