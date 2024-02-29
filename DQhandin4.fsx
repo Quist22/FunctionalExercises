@@ -67,6 +67,6 @@ let fact n =
     let f (n, acc) = n * acc
     downto1 f (n, 1)
 
-let buildList g n = 
-    let g (n, e) = g(n)
-    downto1 g (n, 1) :: []
+let buildList g n = downto1 (fun (n, acc) -> g n :: acc) (n, [])
+
+buildList fact 5
