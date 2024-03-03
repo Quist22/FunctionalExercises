@@ -73,3 +73,12 @@ printfn "Elapsed Time %A" elapsedTime;;
 let timeArg1 f a = time (fun () -> ack a);;
 
 let b = timeArg1 ack (3, 11);;
+
+
+//exercise 4.7
+
+let downto1 f n e =
+    if n <= 0 then e
+    else
+        let sequence = List.rev [1..n]
+        List.fold (fun acc x -> f x acc) e sequence
