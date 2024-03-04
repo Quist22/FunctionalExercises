@@ -1,4 +1,3 @@
-
 //exercise 4.1
 // The first explode-function uses the built in function for strings to create a char array of characters,
 // and then uses the piping operator to pipe these to a List of chars.
