@@ -48,6 +48,7 @@ type stm = (* statements *)
     | Seq of stm * stm (* sequential composition *)
     | ITE of bExp * stm * stm (* if-then-else *)
     | While of bExp * stm (* while *)
+    | IT of bExp * stm (* if-then *)
 
 let rec A a s =
     match a with
